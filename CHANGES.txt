@@ -4,7 +4,7 @@ CHANGES
 0.2.1a2(Unreleased)
 -------------------
 
-
+- Check for view permission on entries in blog.
 
 0.2.1a1(2012-08-21)
 -------------------

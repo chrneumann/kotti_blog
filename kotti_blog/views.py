@@ -6,6 +6,7 @@ import colander
 from deform.widget import DateTimeInputWidget
 
 from kotti import DBSession
+from kotti.security import has_permission
 from kotti.views.edit import (
     DocumentSchema,
     generic_edit,
@@ -81,7 +82,7 @@ def view_blog(context, request):
     session = DBSession()
     query = session.query(BlogEntry).filter(\
                 BlogEntry.parent_id == context.id).order_by(BlogEntry.date.desc())
-    items = query.all()
+    items = [item for item in query.all() if has_permission('view', item, request)]
     page = request.params.get('page', 1)
     if settings['use_batching']:
         items = Batch.fromPagenumber(items,
